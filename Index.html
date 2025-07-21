@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>বাংলা ঘড়ি</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      flex-direction: column;
+    }
+    .time { font-size: 80px; }
+    .date { font-size: 40px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="time" id="time">০০:০০:০০</div>
+  <div class="date" id="date">০০০০-০০-০০</div>
+
+  <script>
+    const bengali = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    function toBangla(str) {
+      return str.split('').map(ch => {
+        const num = parseInt(ch);
+        return isNaN(num) ? ch : bengali[num];
+      }).join('');
+    }
+
+    function update() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      const ss = String(now.getSeconds()).padStart(2,'0');
+      const yyyy = now.getFullYear();
+      const mo = String(now.getMonth()+1).padStart(2,'0');
+      const dd = String(now.getDate()).padStart(2,'0');
+
+      document.getElementById('time').textContent = toBangla(`${hh}:${mm}:${ss}`);
+      document.getElementById('date').textContent = toBangla(`${yyyy}-${mo}-${dd}`);
+    }
+
+    setInterval(update, 1000);
+    update();
+  </script>
+</body>
+</html>
